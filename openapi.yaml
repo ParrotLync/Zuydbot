@@ -18,7 +18,7 @@ servers:
     description: ''
 paths:
   /deadlines/all:
-    get:
+    post:
       summary: Haal alle deadlines op
       description: >-
         Haal alle deadlines op uit de database die gekoppeld zijn aan je unieke
@@ -54,7 +54,7 @@ paths:
   /deadlines/bytag:
     summary: Haal deadlines op
     description: ''
-    get:
+    post:
       summary: Haal gefilterde deadlines op
       description: >-
         Haal alle deadlines op uit de database die voldoen aan de filters vak en
