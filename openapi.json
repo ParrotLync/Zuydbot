@@ -142,7 +142,7 @@
             "Deadline": {
                 "type": "object"
             }
-        }
+        },
         "securitySchemes": {
             "api_key": {
                 "type": "apiKey",
