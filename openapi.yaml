@@ -10,7 +10,7 @@ info:
     Met de Zuydbot API kun je deadlines direct uit de database halen voor eigen
     gebruik, of voor je eigen bot.
 
-    Registreer nu je eigen API key >> https://api.zuydbot.cc/v1/new
+    Registreer nu je eigen API key >> http://api.zuydbot.cc/v1/new
 externalDocs:
   url: 'http://docs.zuydbot.cc'
 security:
