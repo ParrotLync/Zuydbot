@@ -6,9 +6,9 @@ from Logger import AsyncLogger, Logger
 import logging
 import json
 
-bot = commands.Bot(command_prefix='*')
+bot = commands.AutoShardedBot(command_prefix='*')
 client = discord.Client()
-startup_extensions = ["Moodle", "Extensions", "Untis"]
+startup_extensions = ["Extensions", "School"]
 with open('config.json') as config_file:
     config = json.load(config_file)
 
@@ -26,11 +26,12 @@ logger.addHandler(handler)
 
 class Bot(commands.Cog):
     """General bot commands"""
+    __slots__ = 'bot'
+
     def __init__(self):
         self.bot = bot
 
     @commands.command()
-    @commands.has_role("Bot Controller")
     async def broadcast(self, ctx, *, message):
         """Broadcast a message in your current channel"""
         await ctx.message.delete()
@@ -38,7 +39,6 @@ class Bot(commands.Cog):
         await log.info(str(ctx.author) + ' used command BROADCAST')
 
     @commands.command()
-    @commands.has_role("Bot Controller")
     async def embed(self, ctx, title, *, description):
         """Send an embed in your current channel"""
         await ctx.message.delete()
@@ -47,7 +47,6 @@ class Bot(commands.Cog):
         await log.info(str(ctx.author) + ' used command EMBED')
 
     @commands.command()
-    @commands.has_role("Bot Controller")
     async def clear(self, ctx, *, number=100):
         """Delete messages from a text channel."""
         await ctx.message.delete()
