@@ -5,6 +5,8 @@ from Logger import AsyncLogger
 
 class Extensions(commands.Cog):
     """Extension commands"""
+    __slots__ = ('bot', 'log')
+
     def __init__(self, bot, log):
         self.bot = bot
         self.log = log
