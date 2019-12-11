@@ -218,7 +218,6 @@ class School(commands.Cog):
                                                                                             'course': deadline.course,
                                                                                             'content': deadline.content
                                                                                             }})
-            requests.get(config['heartbeat_url'])
             await asyncio.sleep(60)
 
 
