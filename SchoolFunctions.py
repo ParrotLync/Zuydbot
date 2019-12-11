@@ -74,7 +74,7 @@ class LessonImage:
 
         # Course
         message = str(course)
-        draw.text((2250, 545), message, fill=self.cwhite, font=self.font3)
+        draw.text((2200, 545), message, fill=self.cwhite, font=self.font3)
 
         # Location
         message = str(location)
