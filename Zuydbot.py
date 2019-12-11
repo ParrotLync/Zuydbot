@@ -5,6 +5,7 @@ import asyncio
 from Logger import AsyncLogger, Logger
 import logging
 import json
+import requests
 
 bot = commands.AutoShardedBot(command_prefix='*')
 client = discord.Client()
@@ -87,6 +88,13 @@ class Bot(commands.Cog):
         await ctx.send(embed=embed)
         await log.info(str(ctx.author) + ' used command STATS')
 
+"""
+async def update_status():
+    while True:
+        requests.get(config['heartbeat_url'])
+        asyncio.sleep(600)
+"""
+
 
 @bot.event
 async def on_ready():
@@ -95,6 +103,7 @@ async def on_ready():
     print('')
     await log.info(str(bot.user.name) + " is now online!")
     await bot.change_presence(activity=discord.Game(name='zuydbot.cc | *help'))
+    # bot.loop.create_task(update_status())
     if __name__ == "__main__":
         for extension in startup_extensions:
             try:
