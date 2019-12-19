@@ -9,10 +9,11 @@ with open('config.json') as config_file:
 
 
 class Deadline:
-    def __init__(self, date, course, content):
+    def __init__(self, date, course, content, opportunity):
         self.date = date
         self.course = course
         self.content = content
+        self.opportunity = opportunity
 
 
 class Lesson:
@@ -140,12 +141,13 @@ class APIConnection:
         headers = {'key': key}
         r = requests.get(self.base_url + 'deadlines', headers=headers)
         r = json.loads(r.content.decode('utf-8'))
-        deadline_json = r['deadlines']
+        deadlines = r['deadlines']
         meta = r['meta']
-        for i in deadline_json:
-            deadline_list.append(Deadline(deadline_json[i]['date'],
-                                          deadline_json[i]['course'],
-                                          deadline_json[i]['description']))
+        for deadline in deadlines:
+            deadline_list.append(Deadline(deadline['date'],
+                                          deadline['course'],
+                                          deadline['description'],
+                                          deadline['opportunity']))
         return deadline_list, meta
 
     def get_lessons(self, user_id):
@@ -154,14 +156,14 @@ class APIConnection:
         headers = {'key': key}
         r = requests.get(self.base_url + 'lessons', headers=headers)
         r = json.loads(r.content.decode('utf-8'))
-        lesson_json = r['lessons']
+        lessons = r['lessons']
         meta = r['meta']
-        for i in lesson_json:
-            lesson_list.append(Lesson(lesson_json[i]['start-time'],
-                                      lesson_json[i]['end-time'],
-                                      lesson_json[i]['course'],
-                                      lesson_json[i]['location'],
-                                      lesson_json[i]['teacher']))
+        for lesson in lessons:
+            lesson_list.append(Lesson(lesson['start-time'],
+                                      lesson['end-time'],
+                                      lesson['course'],
+                                      lesson['location'],
+                                      lesson['teacher']))
         return lesson_list, meta
 
     def new_guild(self, guild_id, guild_name, webhook_url, user):
