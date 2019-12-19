@@ -7,3 +7,6 @@ https://zuydbot.cc
 
 ### Dashboard
 Je gegevens koppelen met Discord of opvragen met de API? Start bij het Dashboard. https://zuydbot.cc/setup.html
+
+### API
+Vraag je lessen en deadlines op en gebruik deze met je eigen projecten. Je API key kun je opvragen in het Zuydbot Dashboard. Start op https://zuydbot.cc/setup.html.
