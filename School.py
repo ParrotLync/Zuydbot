@@ -52,7 +52,7 @@ class School(commands.Cog):
             'color': color,
             'footer': {
                 'text': footer}}]}
-        requests.post(guild.webhook, data=json.dumps(payload), headers={'Content-Type': 'multipart/form-data'})
+        requests.post(guild.webhook, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
 
     @commands.is_owner()
     @commands.command(hidden=True)
@@ -126,9 +126,16 @@ class School(commands.Cog):
             footer = 'Last update: ' + meta['last-update'] + ' • Generated: ' + str(self.date) + ' ' + str(self.time) \
                      + ' • Deadlines are updated every day'
             embed = discord.Embed(title='Deadlines', color=0xcc6600)
+            deadlines = sorted(deadlines, key=lambda x: x.date)
+            opp1 = ''
+            opp2 = ''
             for deadline in deadlines:
-                header = deadline.date + ' // ' + deadline.course
-                embed.add_field(name=header, value=deadline.content, inline=False)
+                if deadline.opportunity == '1':
+                    opp1 += '**' + deadline.date + ' // ' + deadline.course + '** ' + deadline.content + '\n'
+                elif deadline.opportunity == '2':
+                    opp2 += '**' + deadline.date + ' // ' + deadline.course + '** ' + deadline.content + '\n'
+            embed.add_field(name='Gelegenheid 1', value=opp1, inline=False)
+            embed.add_field(name='Gelegenheid 2', value=opp2, inline=False)
             embed.set_footer(text=footer)
             await ctx.send(embed=embed)
             log.info(str(ctx.author) + " used command DEADLINES")
@@ -203,16 +210,18 @@ class School(commands.Cog):
                     footer = 'Last update: ' + meta['last-update'] + ' • Generated: ' + str(self.date) + ' ' + \
                              str(self.time) + ' • Deadlines are updated every day'
                     for deadline in deadlines:
-                        date = datetime.datetime.strptime(deadline.date, '%Y-%m-%d')
+                        date = datetime.datetime.strptime(deadline.date, '%Y-%m-%d').date()
                         if date == (datetime.datetime.today() - datetime.timedelta(days=3)).date():
-                            description = '**' + deadline.date + ' // ' + deadline.course + '** ' + deadline.content
+                            description = '**' + deadline.date + ' // ' + deadline.course + '** ' + deadline.content \
+                                          + ', gelegenheid ' + deadline.opportunity
                             self.check_embed('new', description, footer, guild)
                             log.info("Sending DEADLINE WARNING for " + guild.name, {'meta': {'date': deadline.date,
                                                                                              'course': deadline.course,
                                                                                              'content': deadline.content
                                                                                              }})
                         if date == datetime.datetime.today().date():
-                            description = '**' + deadline.course + '** ' + deadline.content
+                            description = '**' + deadline.course + '** ' + deadline.content + ', gelegenheid ' \
+                                          + deadline.opportunity
                             self.check_embed('passed', description, footer, guild)
                             log.info("Sending DEADLINE PASSED for " + guild.name, {'meta': {'date': deadline.date,
                                                                                             'course': deadline.course,

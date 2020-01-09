@@ -88,12 +88,27 @@ class Bot(commands.Cog):
         await ctx.send(embed=embed)
         await log.info(str(ctx.author) + ' used command STATS')
 
-"""
+    @commands.is_owner()
+    @commands.command(hidden=True)
+    async def update_status(self, ctx):
+        await ctx.message.delete()
+        try:
+            resp = requests.get(config['heartbeat_url'])
+            message = await ctx.send('`' + str(resp.content.decode('utf-8')) + '`')
+        except Exception as e:
+            await log.exception("HEARTBEAT MONITOR FAIL:" + str(e))
+            message = await ctx.send('`Failed: ' + str(e) + '`')
+        await asyncio.sleep(5)
+        await message.delete()
+
+
 async def update_status():
     while True:
-        requests.get(config['heartbeat_url'])
-        asyncio.sleep(600)
-"""
+        try:
+            requests.get(config['heartbeat_url'])
+        except Exception as e:
+            await log.exception("HEARTBEAT MONITOR FAIL:" + str(e))
+        await asyncio.sleep(600)
 
 
 @bot.event

@@ -129,6 +129,7 @@ class APIConnection:
         r = requests.get(self.base_url + 'master/fetch/guilds', headers=self.master_header)
         r = json.loads(r.content.decode('utf-8'))
         guild_json = r['guilds']
+        print(r)
         for i in guild_json:
             guild_list.append(Guild(guild_json[i]['name'],
                                     guild_json[i]['webhook_url'],
