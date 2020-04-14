@@ -11,4 +11,4 @@ Je gegevens koppelen met Discord of opvragen met de API? Start bij het Dashboard
 ### API
 Vraag je lessen en deadlines op en gebruik deze met je eigen projecten. Je API key kun je opvragen in het Zuydbot Dashboard. Start op https://zuydbot.cc/setup.html.
 
-NIEUW: PIP API Wrapper! >> Bekijk op ![gitlab](https://gitlab.com/zuydbot/zuydbot-api-wrapper)
+NIEUW: PIP API Wrapper! >> Bekijk op [gitlab](https://gitlab.com/zuydbot/zuydbot-api-wrapper)
